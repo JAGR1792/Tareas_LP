@@ -191,6 +191,9 @@ def calcular_prediccion(G, PRIMEROS, SIGUIENTES):
 # =======================
 
 def imprimir_tabla_ascii(headers, filas):
+    def linea(relleno='-'):
+        return "+" + "+".join(relleno * (ancho + 2) for ancho in anchos) + "+"
+
     anchos = []
     for i, header in enumerate(headers):
         max_col = len(str(header))
@@ -198,11 +201,12 @@ def imprimir_tabla_ascii(headers, filas):
             max_col = max(max_col, len(str(fila[i])))
         anchos.append(max_col)
 
-    separador = "+" + "+".join("-" * (ancho + 2) for ancho in anchos) + "+"
+    separador = linea('-')
+    separador_encabezado = linea('=')
 
     print(separador)
     print("| " + " | ".join(str(headers[i]).ljust(anchos[i]) for i in range(len(headers))) + " |")
-    print(separador)
+    print(separador_encabezado)
 
     for fila in filas:
         print("| " + " | ".join(str(fila[i]).ljust(anchos[i]) for i in range(len(headers))) + " |")

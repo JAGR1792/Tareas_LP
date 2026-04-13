@@ -135,9 +135,37 @@ entonces:
 
 `FOLLOW(A) subset FOLLOW(B)`
 
+### Conjunto de PREDICCION (PREDICT)
+
+Sea una produccion:
+
+`A -> α`
+
+El conjunto de prediccion se define como:
+
+Regla 1:
+
+Si `ε ∉ FIRST(α)`, entonces:
+
+`PREDICT(A -> α) = FIRST(α)`
+
+Regla 2:
+
+Si `ε ∈ FIRST(α)`, entonces:
+
+`PREDICT(A -> α) = (FIRST(α) - {ε}) ∪ FOLLOW(A)`
+
+### Interpretacion
+
+- FIRST indica que puede empezar una derivacion.
+- FOLLOW indica que puede venir despues.
+- PREDICT combina ambos para decidir que produccion usar.
+
 ### Nota
 
 Los conjuntos FIRST y FOLLOW se calculan de manera iterativa hasta alcanzar un punto fijo, es decir, hasta que no se agreguen nuevos elementos a ningun conjunto.
+
+Los conjuntos de prediccion permiten construir analizadores sintacticos predictivos (LL(1)), ya que determinan de manera unica que produccion aplicar en funcion del simbolo de entrada.
 
 ## Ejecucion de gramatica1
 
@@ -224,18 +252,18 @@ SIGUIENTES:
 +-------------+--------------------------------+
 
 PREDICCION:
-+----------------------+---------------------------------+
-| Regla                | PREDICCION                      |
-+----------------------+---------------------------------+
-| S -> A B uno         | cinco, cuatro, dos, tres, uno   |
-| A -> dos B           | dos                             |
-| A -> ε               | cinco, cuatro, seis, tres, uno  |
-| A -> ε               | tres, uno                       |
-| B -> D cuatro C tres | cuatro, seis                    |
-| B -> ε               | $, cinco, dos, seis, tres, uno  |
-| C -> cinco D B       | cinco                           |
-| C -> ε               | $, dos, seis, tres, uno         |
-| D -> seis            | seis                            |
-| D -> ε               | $, cuatro, dos, seis, tres, uno |
-+----------------------+---------------------------------+
++-----------------+--------------------------------+
+| Regla           | PREDICCION                     |
++-----------------+--------------------------------+
+| S -> A B uno    | cinco, cuatro, dos, tres, uno  |
+| A -> dos B      | dos                            |
+| A -> ε          | cinco, cuatro, seis, tres, uno |
+| B -> C D        | cinco, cuatro                  |
+| B -> tres       | tres                           |
+| B -> ε          | cinco, cuatro, seis, tres, uno |
+| C -> cuatro A B | cuatro                         |
+| C -> cinco      | cinco                          |
+| D -> seis       | seis                           |
+| D -> ε          | cinco, cuatro, seis, tres, uno |
++-----------------+--------------------------------+
 ```

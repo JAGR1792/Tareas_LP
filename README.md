@@ -47,6 +47,18 @@ A -> ε
 python ASD_Recursivo.py gramatica1.txt
 ```
 
+Tambien se pueden procesar varios archivos en una sola ejecucion:
+
+```bash
+python ASD_Recursivo.py gramatica1.txt gramatica2.txt
+```
+
+Con `-h` se muestra ayuda de uso:
+
+```bash
+python ASD_Recursivo.py -h
+```
+
 Si falta el argumento del archivo:
 
 ```text

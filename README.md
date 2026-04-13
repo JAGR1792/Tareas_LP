@@ -224,12 +224,12 @@ SIGUIENTES:
 +-------------+--------------------------------+
 
 PREDICCION:
-+-----------------+--------------------------------+
-| Regla           | PREDICCION                     |
-+-----------------+--------------------------------+
-| S -> A B uno    | cinco, cuatro, dos, tres, uno  |
-| A -> dos B      | dos                            |
-| A -> ε          | cinco, cuatro, seis, tres, uno |
++----------------------+---------------------------------+
+| Regla                | PREDICCION                      |
++----------------------+---------------------------------+
+| S -> A B uno         | cinco, cuatro, dos, tres, uno   |
+| A -> dos B           | dos                             |
+| A -> ε               | cinco, cuatro, seis, tres, uno  |
 | A -> ε               | tres, uno                       |
 | B -> D cuatro C tres | cuatro, seis                    |
 | B -> ε               | $, cinco, dos, seis, tres, uno  |

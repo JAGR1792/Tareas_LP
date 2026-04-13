@@ -1,4 +1,5 @@
 import sys
+import argparse
 from collections import defaultdict
 
 EPSILON = 'ε'
@@ -248,18 +249,32 @@ def mostrar_resultados_tabla(G, primeros, siguientes, predicciones):
 # =======================
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    parser = argparse.ArgumentParser(
+        description="Calcula PRIMEROS, SIGUIENTES y PREDICCION de una o varias gramaticas."
+    )
+    parser.add_argument(
+        "archivos",
+        nargs="+",
+        help="Uno o mas archivos de entrada con producciones de la gramatica.",
+    )
+
+    # Mantiene el comportamiento de mensaje historico cuando no se envia ningun archivo.
+    if len(sys.argv) == 1:
         print("Uso: python nombre.py archivo.txt")
         print("FALTA <<archivo.txt>>")
         sys.exit(1)
 
-    archivo = sys.argv[1]
+    args = parser.parse_args()
 
-    G = Gramatica()
-    G.cargar(archivo)
+    for i, archivo in enumerate(args.archivos, start=1):
+        if len(args.archivos) > 1:
+            print(f"\n=== Archivo {i}: {archivo} ===")
 
-    PRIMEROS = calcular_primeros(G)
-    SIGUIENTES = calcular_siguientes(G, PRIMEROS)
-    PREDICCION = calcular_prediccion(G, PRIMEROS, SIGUIENTES)
+        G = Gramatica()
+        G.cargar(archivo)
 
-    mostrar_resultados_tabla(G, PRIMEROS, SIGUIENTES, PREDICCION)
+        PRIMEROS = calcular_primeros(G)
+        SIGUIENTES = calcular_siguientes(G, PRIMEROS)
+        PREDICCION = calcular_prediccion(G, PRIMEROS, SIGUIENTES)
+
+        mostrar_resultados_tabla(G, PRIMEROS, SIGUIENTES, PREDICCION)
